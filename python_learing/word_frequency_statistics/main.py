@@ -1,6 +1,7 @@
 import re
-import jieba
+# import jieba
 from collections import Counter
+from pathlib import Path
 
 
 def read_and_clean_chinese(file_path):
@@ -33,6 +34,10 @@ def display_top_words(counter, top_n=10):
 
 
 if __name__ == "__main__":
-    word = read_and_clean_chinese("./test.txt")
+    folder = Path("./data_dir")
+    word = ""
+    file_list = [str(p) for p in folder.iterdir() if p.is_file()]
+    for i in file_list:
+        word = word + read_and_clean_chinese(i)
     count = count_words(word)
     display_top_words(count)
